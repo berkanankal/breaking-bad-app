@@ -9,33 +9,43 @@ const Home = () => {
   const characters = useSelector((state) => state.characters.items);
   const error = useSelector((state) => state.characters.error);
   const isLoading = useSelector((state) => state.characters.isLoading);
+  const page = useSelector((state) => state.characters.page);
+  const hasNextPage = useSelector((state) => state.characters.hasNextPage);
   console.log(characters);
 
   useEffect(() => {
     dispatch(fetchCharacters());
   }, [dispatch]);
 
-  if (isLoading) {
-    return <div>...Loading</div>;
-  }
-
   if (error) {
     return <div>{error}</div>;
   }
 
   return (
-    <Masonry
-      breakpointCols={4}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column"
-    >
-      {characters.map((character) => (
-        <div key={character.char_id}>
-          <img alt={character.name} src={character.img} width="100%" />
-          <div className="char_name">{character.name}</div>
-        </div>
-      ))}
-    </Masonry>
+    <>
+      <Masonry
+        breakpointCols={4}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column"
+      >
+        {characters.map((character) => (
+          <div key={character.char_id}>
+            <img alt={character.name} src={character.img} width="100%" />
+            <div className="char_name">{character.name}</div>
+          </div>
+        ))}
+      </Masonry>
+
+      <div style={{ textAlign: "center", padding: "40px 0" }}>
+        {isLoading && <div style={{ paddingBottom: 10 }}>...Loading</div>}
+        {hasNextPage && !isLoading && (
+          <button onClick={() => dispatch(fetchCharacters(page))}>
+            Load more
+          </button>
+        )}
+        {!hasNextPage && <div>There is nothing to be shown.</div>}
+      </div>
+    </>
   );
 };
 
