@@ -5,15 +5,27 @@ import Loading from "../Loading";
 
 const Details = () => {
   const { id } = useParams();
-  const [character, setCharacter] = useState();
+  const [character, setCharacter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_BASE_ENDPOINT}/characters/${id}`)
-      .then((res) => setCharacter(res.data[0]))
-      .finally(() => setIsLoading(false));
+      .then((res) => {
+        setCharacter(res.data[0]);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [id]);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div>
@@ -22,7 +34,7 @@ const Details = () => {
           <Loading />
         </div>
       )}
-      {character && <pre>{JSON.stringify(character, null, 2)}</pre>}
+      {!isLoading && <pre>{JSON.stringify(character, null, 2)}</pre>}
     </div>
   );
 };

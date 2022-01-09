@@ -8,12 +8,9 @@ import "./styles.css";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const characters = useSelector((state) => state.characters.items);
-  const error = useSelector((state) => state.characters.error);
-  const status = useSelector((state) => state.characters.status);
-  const page = useSelector((state) => state.characters.page);
-  const hasNextPage = useSelector((state) => state.characters.hasNextPage);
-  console.log(characters);
+  const { characters, error, status, page, hasNextPage } = useSelector(
+    (state) => state.characters
+  );
 
   useEffect(() => {
     if (status === "idle") {
