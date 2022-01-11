@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchQuotes } from "../../redux/quotesSlice";
 import Loading from "../Loading";
+import { Link } from "react-router-dom";
+import "./styles.css";
 
 const Quotes = () => {
   const dispatch = useDispatch();
@@ -28,7 +30,12 @@ const Quotes = () => {
       {status === "succeeded" && (
         <div>
           {quotes.map((quote) => (
-            <div key={quote.quote_id}>{quote.quote}</div>
+            <div key={quote.quote_id} style={{ margin: 15 }}>
+              <Link to={`/quotes/${quote.quote_id}`} className="quoteLink">
+                <q>{quote.quote}</q>
+              </Link>{" "}
+              <b>{quote.author}</b>
+            </div>
           ))}
         </div>
       )}

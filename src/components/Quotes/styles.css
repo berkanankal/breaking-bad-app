@@ -1,0 +1,8 @@
+.quoteLink {
+  text-decoration: none;
+  color: black;
+}
+
+.quoteLink:hover {
+  text-decoration: underline;
+}

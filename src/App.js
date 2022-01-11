@@ -2,8 +2,9 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./components/Home";
-import Details from "./components/Details";
+import CharacterDetails from "./components/CharacterDetails";
 import Quotes from "./components/Quotes";
+import QuoteDetails from "./components/QuoteDetails";
 
 const App = () => {
   return (
@@ -20,8 +21,9 @@ const App = () => {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/character/:id" element={<Details />} />
+        <Route path="/character/:id" element={<CharacterDetails />} />
         <Route path="/quotes" element={<Quotes />} />
+        <Route path="/quotes/:id" element={<QuoteDetails />} />
       </Routes>
     </Router>
   );

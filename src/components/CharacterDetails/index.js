@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loading from "../Loading";
 
-const Details = () => {
+const CharacterDetails = () => {
   const { id } = useParams();
   const [character, setCharacter] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,4 +39,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default CharacterDetails;
